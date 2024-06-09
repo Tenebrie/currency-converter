@@ -3,9 +3,12 @@ package com.tenebrie.currency_converter.service;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.javapoet.ClassName;
 import org.springframework.stereotype.Service;
 
 import com.tenebrie.currency_converter.utils.CurrencyValueValidationResult;
@@ -14,6 +17,7 @@ import com.tenebrie.currency_converter.utils.exceptions.RestApiException;
 
 @Service
 public class CurrencyConverterService {
+	private static final Logger logger = Logger.getLogger(ClassName.class.getName());
 
 	@Autowired
 	SwopService swopService;
@@ -21,10 +25,9 @@ public class CurrencyConverterService {
 	public CurrencyValueValidationResult validateAndCastCurrencyValue(String value) {
 		try {
 			var parsedValue = Double.parseDouble(value);
-			var roundedValue = Math.round(parsedValue * 100.0) / 100.0;
-			return new CurrencyValueValidationResult(true, roundedValue);
-		} catch (NumberFormatException e) {
-			System.out.println(e);
+			return new CurrencyValueValidationResult(true, parsedValue);
+		} catch (NumberFormatException ex) {
+			logger.log(Level.SEVERE, "Unable to parse input number", ex);
 			return new CurrencyValueValidationResult(false, 0);
 		}
 	}

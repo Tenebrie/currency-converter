@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { getLocale } from '@/utils/getLocale'
 import type { ApiConversionResult, ApiCurrencyList } from '@/utils/types'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import ErrorNotification from './ErrorNotification.vue'
 
 const errorMessage = ref<string>('')
@@ -41,7 +41,11 @@ const inputValidation = [
     (value: string) => intRegexp.test(value) || floatRegexp.test(value) || 'Invalid number format'
 ]
 
-const inputAmount = ref<number>(0)
+const convertButtonDisabled = computed(() =>
+    inputValidation.some((func) => func(inputAmount.value) != true)
+)
+
+const inputAmount = ref<string>('0')
 const convertedAmount = ref<string>('')
 const isFetchingConversion = ref<boolean>(false)
 
@@ -55,7 +59,7 @@ const formatConvertedValue = (result: ApiConversionResult) => {
 }
 
 const convert = () => {
-    if (isFetchingConversion.value) {
+    if (isFetchingConversion.value || convertButtonDisabled.value) {
         return
     }
 
@@ -88,7 +92,12 @@ const convert = () => {
                     label="Monetary value"
                     @keyup.enter="convert"
                 />
-                <v-btn @click="convert" :loading="isFetchingConversion" color="primary">
+                <v-btn
+                    @click="convert"
+                    :loading="isFetchingConversion"
+                    color="primary"
+                    :disabled="convertButtonDisabled"
+                >
                     <v-icon icon="mdi-swap-horizontal" />
                     Convert
                 </v-btn>

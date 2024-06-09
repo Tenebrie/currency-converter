@@ -82,7 +82,7 @@ public class SwopService {
 				responseFuture.get();
 
 		} catch (Exception ex) {
-			logger.log(Level.SEVERE, ex.toString(), ex);
+			logger.log(Level.SEVERE, "Unable to load currency conversion quotes.", ex);
 			throw new RestApiException(HttpStatus.INTERNAL_SERVER_ERROR, "Unable to load currency conversion quotes.");
 		}
 	}
