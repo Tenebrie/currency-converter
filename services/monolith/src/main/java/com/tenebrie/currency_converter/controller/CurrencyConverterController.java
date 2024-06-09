@@ -13,6 +13,7 @@ import com.tenebrie.currency_converter.service.SwopService;
 
 @RestController
 public class CurrencyConverterController {
+	
 	@Autowired
 	CurrencyConverterService currencyConverterService;
 	@Autowired
