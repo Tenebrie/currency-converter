@@ -1,9 +1,19 @@
 <script setup lang="ts">
-import HomeComponent from '../components/HomeComponent.vue'
+import ConversionComponent from '../components/ConversionComponent.vue'
 </script>
 
 <template>
     <main>
-        <HomeComponent />
+        <ConversionComponent />
     </main>
 </template>
+
+<style scoped>
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+}
+</style>
