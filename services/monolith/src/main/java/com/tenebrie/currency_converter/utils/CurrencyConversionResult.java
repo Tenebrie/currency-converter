@@ -1,6 +1,6 @@
 package com.tenebrie.currency_converter.utils;
 
-public class SwopConversionResult {
+public class CurrencyConversionResult {
 	public String sourceCurrency;
 	public String targetCurrency;
 	public double exchangeRate;

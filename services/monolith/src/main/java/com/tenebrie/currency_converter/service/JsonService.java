@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.tenebrie.currency_converter.utils.ErrorJson;
+import com.tenebrie.currency_converter.utils.json.ErrorJson;
 
 @Service
 public class JsonService {

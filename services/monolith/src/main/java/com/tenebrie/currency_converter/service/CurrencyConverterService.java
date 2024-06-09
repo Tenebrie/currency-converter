@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.tenebrie.currency_converter.utils.CurrencyValueValidationResult;
-import com.tenebrie.currency_converter.utils.SwopConversionResult;
+import com.tenebrie.currency_converter.utils.CurrencyConversionResult;
 import com.tenebrie.currency_converter.utils.exceptions.RestApiException;
 
 @Service
@@ -34,7 +34,7 @@ public class CurrencyConverterService {
 				.anyMatch(validCurrency -> validCurrency.equalsIgnoreCase(currency));
 	}
 
-	public SwopConversionResult convert(double monetaryAmount, String sourceCurrency, String targetCurrency) {
+	public CurrencyConversionResult convert(double monetaryAmount, String sourceCurrency, String targetCurrency) {
 		var rates = swopService.getConversionRates();
 
 		var rateToEur = rates.get(sourceCurrency.toUpperCase());
@@ -48,7 +48,7 @@ public class CurrencyConverterService {
 		var exchangeRate = (1 / rateToEur) * rateToTarget;
 		var convertedValue = monetaryAmount * exchangeRate;
 
-		var result = new SwopConversionResult();
+		var result = new CurrencyConversionResult();
 		result.sourceCurrency = sourceCurrency.toUpperCase();
 		result.targetCurrency = targetCurrency.toUpperCase();
 		result.exchangeRate = Math.round(exchangeRate * 10000.0) / 10000.0;

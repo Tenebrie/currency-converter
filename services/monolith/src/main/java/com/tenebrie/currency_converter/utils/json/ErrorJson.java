@@ -1,4 +1,4 @@
-package com.tenebrie.currency_converter.utils;
+package com.tenebrie.currency_converter.utils.json;
 
 public class ErrorJson {
 	public String error;
