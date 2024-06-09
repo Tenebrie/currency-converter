@@ -34,8 +34,11 @@ fetch('/api/currencies')
     })
     .finally(() => (isFetchingInitial.value = false))
 
+const intRegexp = /^\d*$/
+const floatRegexp = /^\d+\.\d{1,2}$/
 const inputValidation = [
-    (value: string) => value == '' || !isNaN(parseFloat(value)) || 'Must be a number.'
+    (value: string) => value == '' || !isNaN(parseFloat(value)) || 'Must be a number.',
+    (value: string) => intRegexp.test(value) || floatRegexp.test(value) || 'Invalid number format'
 ]
 
 const inputAmount = ref<number>(0)
@@ -83,6 +86,7 @@ const convert = () => {
                     width="1"
                     :rules="inputValidation"
                     label="Monetary value"
+                    @keyup.enter="convert"
                 />
                 <v-btn @click="convert" :loading="isFetchingConversion" color="primary">
                     <v-icon icon="mdi-swap-horizontal" />
