@@ -33,6 +33,6 @@ This is a (not so) small coding assignment to evaluate one's development skills.
 > Requires Java 17 or above and Gradle installed
 - Navigate to `/services/monolith` folder.
 - Create `secret.properties` file inside the `src/main/resources/` folder.
-- Put your swop.cx API key at `secrets.swop.apikey` key (see `secret.properties.example`).
+- Put your [Swop](http://swop.cx/) API key at `secrets.swop.apikey` key (see `secret.properties.example`).
 - Run `gradle bootRun`.
 - The API will be available at `http://localhost:3000/`.
